@@ -1,5 +1,10 @@
 #include <vector>
+#include "Grid.h"
+#include "Case.h"
 #include <iostream>
+#include <iomanip>
+#include <cstdlib>
+#include <ctime>
 
 struct Player
 {

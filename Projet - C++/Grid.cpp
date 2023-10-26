@@ -8,7 +8,7 @@
 using namespace std;
 
 Grid::Grid() {
-
+    srand(time(0));
 }
 
 void Grid::initializeGrid() {
@@ -71,6 +71,67 @@ void Grid::moveTilesUp() {
                     int newValue = grid[currentRow][col].getValue() * 2;
                     grid[currentRow - 1][col].setValue(newValue);
                     grid[currentRow][col].setValue(0);
+                }
+            }
+        }
+    }
+}
+
+void Grid::moveTilesDown() {
+    for (int col = 0; col < SIZE; col++) {
+        for (int row = SIZE - 2; row >= 0; row--) {
+            if (!grid[row][col].isEmpty()) {
+                int currentRow = row;
+                while (currentRow < SIZE - 1 && grid[currentRow + 1][col].isEmpty()) {
+                    grid[currentRow + 1][col].setValue(grid[currentRow][col].getValue());
+                    grid[currentRow][col].setValue(0);
+                    currentRow++;
+                }
+                if (currentRow < SIZE - 1 && grid[currentRow + 1][col].getValue() == grid[currentRow][col].getValue()) {
+                    int newValue = grid[currentRow][col].getValue() * 2;
+                    grid[currentRow + 1][col].setValue(newValue);
+                    grid[currentRow][col].setValue(0);
+                }
+            }
+        }
+    }
+}
+
+
+void Grid::moveTilesRight() {
+    for (int row = 0; row < SIZE; row++) {
+        for (int col = SIZE - 2; col >= 0; col--) {
+            if (!grid[row][col].isEmpty()) {
+                int currentCol = col;
+                while (currentCol < SIZE - 1 && grid[row][currentCol + 1].isEmpty()) {
+                    grid[row][currentCol + 1].setValue(grid[row][currentCol].getValue());
+                    grid[row][currentCol].setValue(0);
+                    currentCol++;
+                }
+                if (currentCol < SIZE - 1 && grid[row][currentCol + 1].getValue() == grid[row][currentCol].getValue()) {
+                    int newValue = grid[row][currentCol].getValue() * 2;
+                    grid[row][currentCol + 1].setValue(newValue);
+                    grid[row][currentCol].setValue(0);
+                }
+            }
+        }
+    }
+}
+
+void Grid::moveTilesLeft() {
+    for (int row = 0; row < SIZE; row++) {
+        for (int col = 1; col < SIZE; col++) {
+            if (!grid[row][col].isEmpty()) {
+                int currentCol = col;
+                while (currentCol > 0 && grid[row][currentCol - 1].isEmpty()) {
+                    grid[row][currentCol - 1].setValue(grid[row][currentCol].getValue());
+                    grid[row][currentCol].setValue(0);
+                    currentCol--;
+                }
+                if (currentCol > 0 && grid[row][currentCol - 1].getValue() == grid[row][currentCol].getValue()) {
+                    int newValue = grid[row][currentCol].getValue() * 2;
+                    grid[row][currentCol - 1].setValue(newValue);
+                    grid[row][currentCol].setValue(0);
                 }
             }
         }

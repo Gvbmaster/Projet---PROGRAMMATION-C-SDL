@@ -44,3 +44,15 @@ void Grid::displayGrid() {
 
     cout << endl;
 }
+
+void Grid::generateRandomTile() {
+    int randomValue = std::rand() % 2 == 0 ? 2 : 4;
+
+    int emptyRow, emptyCol;
+    do {
+        emptyRow = std::rand() % SIZE;
+        emptyCol = std::rand() % SIZE;
+    } while (!grid[emptyRow][emptyCol].isEmpty());
+
+    grid[emptyRow][emptyCol].setValue(randomValue);
+}

@@ -10,6 +10,7 @@ public:
 	Grid();
 	void initializeGrid();
 	void displayGrid();
+	void generateRandomTile();
 
 	int moveUp;
 	int moveDown;

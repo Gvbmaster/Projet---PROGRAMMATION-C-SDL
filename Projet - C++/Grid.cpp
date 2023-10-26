@@ -56,3 +56,23 @@ void Grid::generateRandomTile() {
 
     grid[emptyRow][emptyCol].setValue(randomValue);
 }
+
+void Grid::moveTilesUp() {
+    for (int col = 0; col < SIZE; col++) {
+        for (int row = 1; row < SIZE; row++) {
+            if (!grid[row][col].isEmpty()) {
+                int currentRow = row;
+                while (currentRow > 0 && grid[currentRow - 1][col].isEmpty()) {
+                    grid[currentRow - 1][col].setValue(grid[currentRow][col].getValue());
+                    grid[currentRow][col].setValue(0);
+                    currentRow--;
+                }
+                if (currentRow > 0 && grid[currentRow - 1][col].getValue() == grid[currentRow][col].getValue()) {
+                    int newValue = grid[currentRow][col].getValue() * 2;
+                    grid[currentRow - 1][col].setValue(newValue);
+                    grid[currentRow][col].setValue(0);
+                }
+            }
+        }
+    }
+}

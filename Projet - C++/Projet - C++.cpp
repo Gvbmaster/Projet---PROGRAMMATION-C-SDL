@@ -6,33 +6,25 @@
 #include <cstdlib>
 #include <ctime>
 
-struct Player
-{
-	Point position;
-};
-
-class Point 
-{
-public:
-	int x;
-	int y;
-	int z;
-
-	void Clear() 
-	{
-		x = 0;
-		y = 0;
-		z = 0;
-	}
-};
+using namespace std;
 
 int main() {
+    Grid grid;
 
-	int a;
-	float b;
+    grid.initializeGrid();
 
+    grid.displayGrid();
 
-	Player player;
-	player.position.Clear();
+    char choice;
 
-};
+    while (true) {
+        cout << "Appuyez sur T pour quitter : ";
+        cin >> choice;
+
+        if (choice == 'T' || choice == 't') {
+            break;
+        }
+    }
+
+    return 0;
+}

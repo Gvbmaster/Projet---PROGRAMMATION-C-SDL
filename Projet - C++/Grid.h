@@ -9,7 +9,6 @@ private:
 public:
 	Grid();
 	void initializeGrid();
-	void getCase();
 	void displayGrid();
 
 	int moveUp;

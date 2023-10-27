@@ -11,6 +11,7 @@ public:
     void initializeGrid();
     void displayGrid();
     void generateRandomTile();
+    void isWin();
     void moveTilesUp();
     void moveTilesDown();
     void moveTilesRight();

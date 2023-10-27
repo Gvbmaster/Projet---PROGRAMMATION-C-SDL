@@ -28,10 +28,10 @@ void Grid::displayGrid() {
 
         for (int j = 0; j < SIZE; j++) {
             if (grid[i][j].isEmpty()) {
-                cout << "| " << setw(3) << "      ";
+                cout << "  | " << setw(3) << "      ";
             }
             else {
-                cout << "| " << setw(3) << grid[i][j].getValue();
+                cout << "  | " << setw(3) << grid[i][j].getValue();
             }
         }
         cout << "|" << endl;
@@ -55,6 +55,17 @@ void Grid::generateRandomTile() {
     } while (!grid[emptyRow][emptyCol].isEmpty());
 
     grid[emptyRow][emptyCol].setValue(randomValue);
+}
+
+void Grid::isWin() {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if (grid[i][j].getValue() == 2048){
+                cout << "GG mon reuf" << endl;
+                return ;
+            }
+        }
+    }
 }
 
 void Grid::moveTilesUp() {
@@ -137,3 +148,4 @@ void Grid::moveTilesLeft() {
         }
     }
 }
+

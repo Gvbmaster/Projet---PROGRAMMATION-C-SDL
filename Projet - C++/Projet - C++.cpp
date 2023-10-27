@@ -18,8 +18,8 @@ int main() {
     Grid grid;
 
 
-    bool quitGame = false;
-    while (!quitGame) {
+    bool theGame = false;
+    while (!theGame) {
         
         grid.displayGrid();
 
@@ -45,7 +45,7 @@ int main() {
                 break;
             case 'q':
             case 'Q':
-                quitGame = true; 
+                 theGame= true; 
                 validMove = true; 
                 break;
             default:

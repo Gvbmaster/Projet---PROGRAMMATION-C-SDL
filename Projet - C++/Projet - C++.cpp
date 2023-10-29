@@ -17,10 +17,9 @@ using namespace std;
 int main() {
     Grid grid;
 
+    bool theGame = true;
 
-    bool theGame = false;
-    while (!theGame) {
-        
+    while (theGame) {
         grid.displayGrid();
 
         bool validMove = false;
@@ -36,28 +35,27 @@ int main() {
                 validMove = true;
                 break;
             case KEY_LEFT:
-                grid.moveTilesLeft(); 
+                grid.moveTilesLeft();
                 validMove = true;
                 break;
             case KEY_RIGHT:
-                grid.moveTilesRight(); 
+                grid.moveTilesRight();
                 validMove = true;
                 break;
             case 'q':
             case 'Q':
-                 theGame= true; 
-                validMove = true; 
+                theGame = false;
+                validMove = true;
                 break;
             default:
-                
                 break;
             }
         }
 
-        
         grid.generateRandomTile();
-
-       
+        grid.winCondition();
+        grid.loseCondition();
     }
+
     return 0;
 }

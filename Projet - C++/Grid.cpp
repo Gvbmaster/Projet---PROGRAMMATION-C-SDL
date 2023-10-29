@@ -20,6 +20,7 @@ void Grid::initializeGrid() {
 }
 
 void Grid::displayGrid() {
+    system("cls"); // On éfface l'écran pour n'avoir qu'une seule grille
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             cout << "+-------";
@@ -28,10 +29,10 @@ void Grid::displayGrid() {
 
         for (int j = 0; j < SIZE; j++) {
             if (grid[i][j].isEmpty()) {
-                cout << "  | " << setw(3) << "      ";
+                cout << "|       ";
             }
             else {
-                cout << "  | " << setw(3) << grid[i][j].getValue();
+                cout << "| " << setw(6) << grid[i][j].getValue();
             }
         }
         cout << "|" << endl;
@@ -57,16 +58,34 @@ void Grid::generateRandomTile() {
     grid[emptyRow][emptyCol].setValue(randomValue);
 }
 
-void Grid::isWin() {
+void Grid::winCondition() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            if (grid[i][j].getValue() == 2048){
-                cout << "GG mon reuf" << endl;
-                return ;
+            if (grid[i][j].getValue() == 2048) {
+                cout << "GG, tu as gagné" << endl;
+                return;
             }
         }
     }
 }
+
+void Grid::loseCondition() {   
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if (grid[i][j].isEmpty()) {
+                return;
+            }
+            // On regarde s'il est encore possible de fusionner des cases
+            if ((i > 0 && grid[i][j].getValue() == grid[i - 1][j].getValue()) ||
+                (j > 0 && grid[i][j].getValue() == grid[i][j - 1].getValue())) {
+                return;
+            }
+        }
+    }
+    cout << "Dommage,tu as perdu." << endl;
+    // Ajoutez ici la logique pour gérer la défaite, par exemple, demander si le joueur souhaite rejouer, etc.
+}
+
 
 void Grid::moveTilesUp() {
     for (int col = 0; col < SIZE; col++) {
@@ -74,11 +93,13 @@ void Grid::moveTilesUp() {
             if (!grid[row][col].isEmpty()) {
                 int currentRow = row;
                 while (currentRow > 0 && grid[currentRow - 1][col].isEmpty()) {
+                    //Ici on s'occupe des déplacements
                     grid[currentRow - 1][col].setValue(grid[currentRow][col].getValue());
                     grid[currentRow][col].setValue(0);
                     currentRow--;
                 }
                 if (currentRow > 0 && grid[currentRow - 1][col].getValue() == grid[currentRow][col].getValue()) {
+                    // On s'occupe de la fusion des cases
                     int newValue = grid[currentRow][col].getValue() * 2;
                     grid[currentRow - 1][col].setValue(newValue);
                     grid[currentRow][col].setValue(0);
@@ -94,11 +115,13 @@ void Grid::moveTilesDown() {
             if (!grid[row][col].isEmpty()) {
                 int currentRow = row;
                 while (currentRow < SIZE - 1 && grid[currentRow + 1][col].isEmpty()) {
+                    //Ici on s'occupe des déplacements
                     grid[currentRow + 1][col].setValue(grid[currentRow][col].getValue());
                     grid[currentRow][col].setValue(0);
                     currentRow++;
                 }
                 if (currentRow < SIZE - 1 && grid[currentRow + 1][col].getValue() == grid[currentRow][col].getValue()) {
+                    // On s'occupe de la fusion des cases
                     int newValue = grid[currentRow][col].getValue() * 2;
                     grid[currentRow + 1][col].setValue(newValue);
                     grid[currentRow][col].setValue(0);
@@ -115,11 +138,13 @@ void Grid::moveTilesRight() {
             if (!grid[row][col].isEmpty()) {
                 int currentCol = col;
                 while (currentCol < SIZE - 1 && grid[row][currentCol + 1].isEmpty()) {
+                    //Ici on s'occupe des déplacements
                     grid[row][currentCol + 1].setValue(grid[row][currentCol].getValue());
                     grid[row][currentCol].setValue(0);
                     currentCol++;
                 }
                 if (currentCol < SIZE - 1 && grid[row][currentCol + 1].getValue() == grid[row][currentCol].getValue()) {
+                    // On s'occupe de la fusion des cases
                     int newValue = grid[row][currentCol].getValue() * 2;
                     grid[row][currentCol + 1].setValue(newValue);
                     grid[row][currentCol].setValue(0);
@@ -135,11 +160,13 @@ void Grid::moveTilesLeft() {
             if (!grid[row][col].isEmpty()) {
                 int currentCol = col;
                 while (currentCol > 0 && grid[row][currentCol - 1].isEmpty()) {
+                    //Ici on s'occupe des déplacements
                     grid[row][currentCol - 1].setValue(grid[row][currentCol].getValue());
                     grid[row][currentCol].setValue(0);
                     currentCol--;
                 }
                 if (currentCol > 0 && grid[row][currentCol - 1].getValue() == grid[row][currentCol].getValue()) {
+                    // Fuuuuu-sion Haa!
                     int newValue = grid[row][currentCol].getValue() * 2;
                     grid[row][currentCol - 1].setValue(newValue);
                     grid[row][currentCol].setValue(0);

@@ -56,6 +56,5 @@ int main() {
         grid.winCondition();
         grid.loseCondition();
     }
-
     return 0;
 }

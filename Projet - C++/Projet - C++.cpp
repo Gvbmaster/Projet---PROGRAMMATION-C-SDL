@@ -7,7 +7,7 @@
 #include <ctime>
 #include <conio.h>
 
-#define KEY_UP 72
+#define KEY_UP 72  //on definit les fleches du clavier comme touches de jeu
 #define KEY_DOWN 80
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
@@ -16,10 +16,11 @@ using namespace std;
 
 int main() {
     Grid grid;
-
     bool theGame = true;
+    bool gameWon = false;
+    bool gameLost = false;
 
-    while (theGame) {
+    while (theGame && !gameWon && !gameLost) {
         grid.displayGrid();
 
         bool validMove = false;
@@ -53,8 +54,17 @@ int main() {
         }
 
         grid.generateRandomTile();
-        grid.winCondition();
-        grid.loseCondition();
+        gameWon = grid.winCondition(); // Vérifie la condition de victoire
+        gameLost = grid.loseCondition(); // Vérifie la condition de défaite
     }
+
+    grid.displayGrid(); // Affiche le plateau final
+    if (gameWon) {
+        cout << "Félicitations ! Vous avez gagné !" << endl;
+    }
+    else if (gameLost) {
+        cout << "Dommage, vous avez perdu." << endl;
+    }
+
     return 0;
 }

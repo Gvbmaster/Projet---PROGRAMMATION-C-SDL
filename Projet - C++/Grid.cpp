@@ -14,15 +14,15 @@ Grid::Grid() {
 void Grid::initializeGrid() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            grid[i][j] = Case();
+            grid[i][j] = Case(); // on va donner les coordonnés de chaque case
         }
     }
 }
 
 void Grid::displayGrid() {
     system("cls"); // On éfface l'écran pour n'avoir qu'une seule grille
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
+    for (int i = 0; i < SIZE; i++) { // i = ligne
+        for (int j = 0; j < SIZE; j++) {  // j = colonne
             cout << "+-------";
         }
         cout << "+" << endl;
@@ -32,7 +32,7 @@ void Grid::displayGrid() {
                 cout << "|       ";
             }
             else {
-                cout << "| " << setw(6) << grid[i][j].getValue();
+                cout << "| " << setw(6) << grid[i][j].getValue(); // on recup la valeur de la case
             }
         }
         cout << "|" << endl;
@@ -47,43 +47,42 @@ void Grid::displayGrid() {
 }
 
 void Grid::generateRandomTile() {
-    int randomValue = std::rand() % 2 == 0 ? 2 : 4;
+    int randomValue = std::rand() % 2 == 0 ? 2 : 4; // random la tile si elle est = 2 ou 4
 
-    int emptyRow, emptyCol;
+    int emptyRow, emptyCol; // stock les coordonnées d'une case vide
     do {
         emptyRow = std::rand() % SIZE;
         emptyCol = std::rand() % SIZE;
-    } while (!grid[emptyRow][emptyCol].isEmpty());
+    } while (!grid[emptyRow][emptyCol].isEmpty()); // cherche une case vide 
 
-    grid[emptyRow][emptyCol].setValue(randomValue);
+    grid[emptyRow][emptyCol].setValue(randomValue); // attribu une valeur aleatoire a la nouvelle tile crée
 }
 
-void Grid::winCondition() {
+bool Grid::winCondition() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            if (grid[i][j].getValue() == 2048) {
-                cout << "GG, tu as gagné" << endl;
-                return;
+            if (grid[i][j].getValue() == 2048) { // verif si une case est = 2048
+                return true;
             }
         }
     }
+    return false;
 }
 
-void Grid::loseCondition() {   
+bool Grid::loseCondition() {   
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             if (grid[i][j].isEmpty()) {
-                return;
+                return false;
             }
             // On regarde s'il est encore possible de fusionner des cases
             if ((i > 0 && grid[i][j].getValue() == grid[i - 1][j].getValue()) ||
                 (j > 0 && grid[i][j].getValue() == grid[i][j - 1].getValue())) {
-                return;
+                return false;
             }
         }
     }
-    cout << "Dommage,tu as perdu." << endl;
-    // Ajoutez ici la logique pour gérer la défaite, par exemple, demander si le joueur souhaite rejouer, etc.
+    return true;
 }
 
 

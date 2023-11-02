@@ -15,6 +15,6 @@ public:
     void moveTilesDown();
     void moveTilesRight();
     void moveTilesLeft();
-    void winCondition();
-    void loseCondition();
+    bool winCondition();
+    bool loseCondition();
 };

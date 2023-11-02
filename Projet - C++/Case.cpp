@@ -4,7 +4,6 @@
 #include <iomanip>
 #include <cstdlib>
 #include <ctime>
-#include "Case.h"
 
 Case::Case() : value(0) {
 }
